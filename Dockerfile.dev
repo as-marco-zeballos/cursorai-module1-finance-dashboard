@@ -2,8 +2,15 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./ 2>/dev/null || true
-
+COPY package.json ./
+# COPY package-lock.json ./
+# COPY pnpm-lock.yaml ./
+# COPY yarn.lock ./
+# COPY bun.lockb ./
+# COPY nuxt.lock ./
+# COPY turbo.lock ./
+# COPY pnpm-workspace.yaml ./
+# COPY pnpm-workspace.yaml ./
 RUN npm install
 
 COPY . .
