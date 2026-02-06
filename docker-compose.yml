@@ -12,5 +12,8 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      # Use polling so file changes on the host are detected inside the container (hot reload)
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     command: npm run dev
 
