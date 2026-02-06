@@ -22,6 +22,16 @@ The development environment supports **hot reloading**.
 - `Dockerfile.dev` – development image (hot reload)
 - `docker-compose.yml` – dev environment with volume mounts
 - `.dockerignore` – files excluded from the Docker build context
+- `database/` – database schema and Supabase setup
+  - `schema.sql` – PostgreSQL schema (expenses, financial advice, etc.)
+  - `supabase-rls.sql` – Row Level Security for Supabase
+  - `README.md` – **Supabase setup steps** and local PostgreSQL options
+
+---
+
+## Database (Supabase)
+
+The app is designed to use **Supabase** for the database (PostgreSQL) and optional auth. For full setup (project creation, running schema, RLS, env vars, and client usage), see **[database/README.md](database/README.md)**.
 
 ---
 
