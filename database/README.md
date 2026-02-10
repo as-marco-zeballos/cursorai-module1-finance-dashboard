@@ -4,14 +4,14 @@ This directory contains the complete database schema for a Personal Finance Cont
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| **`schema.sql`** | Full PostgreSQL schema: tables, indexes, triggers, views |
-| **`seed-demo.sql`** | Demo user and default expense categories (optional; set `DEMO_USER_ID` in app env) |
-| **`supabase-rls.sql`** | Supabase Row Level Security (RLS) and optional Auth integration |
-| **`ARCHITECTURE.md`** | Design decisions and architecture notes |
-| **`ER_DIAGRAM.md`** | Entity Relationship Diagram |
-| **`types.ts`** | TypeScript types aligned with the schema |
+|          File          |                                   Purpose                                          |
+|------------------------|------------------------------------------------------------------------------------|
+| **`schema.sql`**       | Full PostgreSQL schema: tables, indexes, triggers, views                           |
+| **`seed-demo.sql`**    | Demo user and default expense categories (optional; set `DEMO_USER_ID` in app env) |
+| **`supabase-rls.sql`** | Supabase Row Level Security (RLS) and optional Auth integration                    |
+| **`ARCHITECTURE.md`**  | Design decisions and architecture notes                                            |
+| **`ER_DIAGRAM.md`**    | Entity Relationship Diagram                                                        |
+| **`types.ts`**         | TypeScript types aligned with the schema                                           |
 
 ---
 
@@ -50,7 +50,7 @@ The schema is compatible with Supabase. Use these steps to create the database a
 ### Step 4: Get your project URL and keys
 
 1. In the Dashboard, go to **Project Settings** (gear icon) → **API**.
-2. Note:
+2. Note: (under the "Legacy anon, service_role API keys" tab)
    - **Project URL** (e.g. `https://xxxxx.supabase.co`)
    - **anon (public) key** – use in the browser / Next.js client.
    - **service_role key** – use only on the server, never expose to the client.
@@ -153,19 +153,19 @@ Then `auth.uid()` in RLS will match `public.users.id`, and your app can use Supa
 
 ## Core tables (overview)
 
-| Table | Purpose |
-|-------|---------|
-| `users` | User/profile and preferences |
-| `expenses` | Daily expense records |
-| `expense_categories` | Category tree for expenses |
-| `payment_methods` | How expenses were paid |
-| `financial_advice` | Stored advice (from internet or app) |
-| `advice_sources` | Source of advice (site, API, RSS, etc.) |
-| `advice_interactions` | User read/bookmark/etc. on advice |
-| `budgets` | Budget limits and periods |
-| `financial_goals` | Savings/debt/investment goals |
-| `accounts` | Wallets/accounts and balances |
-| `account_transactions` | Transaction history per account |
+|        Table           | Purpose                                 |
+|------------------------|-----------------------------------------|
+| `users`                | User/profile and preferences            |
+| `expenses`             | Daily expense records                   |
+| `expense_categories`   | Category tree for expenses              |
+| `payment_methods`      | How expenses were paid                  |
+| `financial_advice`     | Stored advice (from internet or app)    |
+| `advice_sources`       | Source of advice (site, API, RSS, etc.) |
+| `advice_interactions`  | User read/bookmark/etc. on advice       |
+| `budgets`              | Budget limits and periods               |
+| `financial_goals`      | Savings/debt/investment goals           |
+| `accounts`             | Wallets/accounts and balances           |
+| `account_transactions` | Transaction history per account         |
 
 ---
 
