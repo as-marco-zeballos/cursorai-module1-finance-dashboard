@@ -15,8 +15,11 @@ The development environment supports **hot reloading**.
 - `next.config.mjs` – Next.js configuration
 - `tsconfig.json` / `next-env.d.ts` – TypeScript configuration
 - `app/` – App Router pages and global styles
-  - `app/layout.tsx` – root layout
-  - `app/page.tsx` – example home page
+  - `app/layout.tsx` – root layout with top navigation
+  - `app/page.tsx` – home page
+  - `app/payments/` – record daily payments (amount, description, category)
+  - `app/records/` – list and filter expenses (category, date range, amount range)
+  - `app/stats/` – bar chart of expenses by category (same filters as Records)
   - `app/globals.css` – global styles
 - `Dockerfile` – production image (optimized build)
 - `Dockerfile.dev` – development image (hot reload)
@@ -31,7 +34,7 @@ The development environment supports **hot reloading**.
 
 ## Database (Supabase)
 
-The app is designed to use **Supabase** for the database (PostgreSQL) and optional auth. For full setup (project creation, running schema, RLS, env vars, and client usage), see **[database/README.md](database/README.md)**.
+The app uses **Supabase** for the database (PostgreSQL) when `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are set. Otherwise it runs with an **in-memory store** (data is lost on restart). For full setup (project creation, running schema, RLS, env vars, and optional demo seed), see **[database/README.md](database/README.md)**.
 
 ---
 

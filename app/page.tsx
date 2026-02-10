@@ -1,12 +1,16 @@
+/// <reference types="react" />
+import Link from "next/link";
+
 export default function HomePage() {
   return (
-    <main style={{ fontFamily: "system-ui, sans-serif", padding: "2rem" }}>
+    <div className="page-header">
       <h1>Personal Finance Dashboard</h1>
-      <p>
-        Next.js app running in Docker with hot reloading. 
-        Replace this page with your actual dashboard.
+      <p>Track daily payments, view records, and explore stats.</p>
+      <p style={{ marginTop: "1rem" }}>
+        <Link href="/payments" className="btn btn-primary">
+          Record a payment
+        </Link>
       </p>
-    </main>
+    </div>
   );
 }
-

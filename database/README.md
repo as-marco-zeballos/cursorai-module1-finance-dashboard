@@ -7,6 +7,7 @@ This directory contains the complete database schema for a Personal Finance Cont
 | File | Purpose |
 |------|---------|
 | **`schema.sql`** | Full PostgreSQL schema: tables, indexes, triggers, views |
+| **`seed-demo.sql`** | Demo user and default expense categories (optional; set `DEMO_USER_ID` in app env) |
 | **`supabase-rls.sql`** | Supabase Row Level Security (RLS) and optional Auth integration |
 | **`ARCHITECTURE.md`** | Design decisions and architecture notes |
 | **`ER_DIAGRAM.md`** | Entity Relationship Diagram |
@@ -62,9 +63,10 @@ In your Next.js app root, create or edit `.env.local`:
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+DEMO_USER_ID=00000000-0000-0000-0000-000000000001
 ```
 
-Use `NEXT_PUBLIC_*` only for the Supabase client in the browser; use `SUPABASE_SERVICE_ROLE_KEY` only in server-side code (API routes, server actions).
+Use `NEXT_PUBLIC_*` only for the Supabase client in the browser; use `SUPABASE_SERVICE_ROLE_KEY` only in server-side code (API routes, server actions). If you run **`seed-demo.sql`** (after `schema.sql`), use the same `DEMO_USER_ID` as in that seed so the app can create and list expenses for the demo user.
 
 ### Step 6: Install Supabase client
 

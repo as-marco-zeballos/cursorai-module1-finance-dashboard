@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Nav } from "./components/Nav";
 
 export const metadata: Metadata = {
   title: "Personal Finance Dashboard",
-  description: "A demo Next.js dashboard for personal finance tracking."
+  description: "Track daily payments and visualize your expenses.",
 };
 
 export default function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Nav />
+        <main className="main">{children}</main>
+      </body>
     </html>
   );
 }
