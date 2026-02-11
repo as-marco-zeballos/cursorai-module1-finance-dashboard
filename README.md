@@ -25,6 +25,7 @@ The development environment supports **hot reloading**.
 - `Dockerfile.dev` – development image (hot reload)
 - `docker-compose.yml` – dev environment with volume mounts
 - `.dockerignore` – files excluded from the Docker build context
+- `vercel.json` – Vercel deployment configuration
 - `database/` – database schema and Supabase setup
   - `schema.sql` – PostgreSQL schema (expenses, financial advice, etc.)
   - `supabase-rls.sql` – Row Level Security for Supabase
@@ -153,6 +154,103 @@ http://localhost:3000
 ```
 
 Note: this image is intended for production testing; there is **no hot reloading** in this mode.
+
+---
+
+## Deploy to Vercel
+
+The app is set up for **Vercel** (Next.js is built for Vercel). You can deploy from the Vercel Dashboard or the Vercel CLI.
+
+### Prerequisites
+
+- A **Vercel account** ([sign up](https://vercel.com/signup)).
+- The project in a **Git** repo on **GitHub**, **GitLab**, or **Bitbucket** (Vercel deploys from Git).
+
+### Option A: Deploy via Vercel Dashboard
+
+1. **Push your code** to GitHub, GitLab, or Bitbucket (if you haven’t already).
+
+2. **Import the project**
+   - Go to [vercel.com/new](https://vercel.com/new).
+   - Click **Import** next to your repository (or **Import Git Repository** and paste the repo URL).
+   - Select the repo and the branch to deploy (e.g. `main`).
+
+3. **Configure the project**
+   - **Framework Preset**: Vercel should detect **Next.js** automatically (via `vercel.json` or `package.json`).
+   - **Root Directory**: leave as `.` (project root) unless the app lives in a subfolder.
+   - **Build Command**: leave default (`npm run build` or `next build`).
+   - **Output Directory**: leave default (Next.js uses `.next`).
+
+4. **Set environment variables**  
+   The app uses Supabase when these are set. In the import screen (or later in **Project → Settings → Environment Variables**), add:
+
+   | Name                            | Description                                          | Where to get it                                     |
+   |---------------------------------|------------------------------------------------------|-----------------------------------------------------|
+   | `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project URL                                 | Supabase Dashboard → Project Settings → API         |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon (public) key                           | Same as above                                       |
+   | `SUPABASE_SERVICE_ROLE_KEY`     | Supabase service role key (server-only)              | Same as above                                       |
+   | `DEMO_USER_ID`                  | Demo user UUID (must match `database/seed-demo.sql`) | Your seed or `00000000-0000-0000-0000-000000000001` |
+
+   Add them for **Production**, **Preview**, and **Development** if you use all three.
+
+5. **Deploy**
+   - Click **Deploy**.
+   - Vercel will build and deploy. When it’s done, you’ll get a URL like `https://your-project.vercel.app`.
+
+6. **Later changes**  
+   Every push to the connected branch triggers a new production deploy. Pull requests get **Preview** URLs.
+
+### Option B: Deploy with Vercel CLI
+
+1. **Install the CLI** (requires Node.js locally, or use [npx](https://docs.npmjs.com/cli/v8/commands/npx)):
+
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Log in and link the project** (from the project root):
+
+   ```bash
+   vercel login
+   vercel link
+   ```
+
+   When prompted, create a new project or link to an existing one.
+
+3. **Set environment variables** (optional; you can also set them in the Dashboard):
+
+   ```bash
+   vercel env add NEXT_PUBLIC_SUPABASE_URL
+   vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
+   vercel env add SUPABASE_SERVICE_ROLE_KEY
+   vercel env add DEMO_USER_ID
+   ```
+
+   Enter the values when prompted. Repeat for Production / Preview / Development as needed.
+
+4. **Deploy**
+
+   - **Preview** (unique URL per run):
+     ```bash
+     vercel
+     ```
+   - **Production** (e.g. `main` branch):
+     ```bash
+     vercel --prod
+     ```
+
+### After deployment
+
+- **Custom domain**: Project → **Settings → Domains**.
+- **Env changes**: Update in **Settings → Environment Variables**, then redeploy (e.g. **Deployments → … → Redeploy**).
+- **Database**: Ensure your Supabase project allows connections from Vercel (no extra config usually). If you use RLS, the same keys and `DEMO_USER_ID` used locally should work.
+
+### Summary: steps to deploy
+
+1. Push the repo to GitHub / GitLab / Bitbucket.
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
+3. Add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, and `DEMO_USER_ID` in Environment Variables.
+4. Click **Deploy** and use the generated URL (or connect a custom domain later).
 
 ---
 
